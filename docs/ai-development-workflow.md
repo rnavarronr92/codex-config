@@ -306,6 +306,8 @@ Esta revisión es responsabilidad del desarrollador, aunque utilice IA para apoy
 
 La skill `senior-code-review` debe evaluar:
 
+La revisión respeta el alcance solicitado y carga únicamente las referencias relevantes de la skill. Si un cambio cruza varias capas, se cargan las referencias adicionales necesarias para seguir el flujo completo.
+
 **Laravel / PHP**
 - Errores de lógica.
 - Autorización y validaciones.
@@ -328,6 +330,8 @@ La skill `senior-code-review` debe evaluar:
 - Acoplamiento innecesario.
 - Cambios fuera del alcance.
 - Compatibilidad con otros módulos.
+
+Por ejemplo, una revisión de un nuevo selector Vue no implica revisar PostgreSQL, Redis o Laravel salvo que el componente dependa directamente de esas capas.
 
 ### Ejemplo
 
