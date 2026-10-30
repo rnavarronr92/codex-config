@@ -1,0 +1,11 @@
+# Plantilla de configuración local para Codex.
+# No copies secretos ni tokens a este repositorio.
+# Revisa la documentación del servidor antes de habilitarlo.
+
+# Ejemplo de un servidor MCP local de Azure DevOps:
+# [mcp_servers.azure-devops]
+# command = "npx"
+# args = ["-y", "@azure-devops/mcp", "TU_ORGANIZACION"]
+
+# La configuración real normalmente se guarda en:
+# ~/.codex/config.toml
