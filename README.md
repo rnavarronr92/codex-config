@@ -30,12 +30,12 @@ codex-config/
 |---|---|
 | `review-user-story` | Revisar historias de usuario de Azure DevOps. |
 | `technical-planner` | Investigar el código y preparar planes técnicos. |
-| `senior-code-review` | Revisar cambios con reglas generales y referencias específicas por tecnología. |
+| `code-review` | Revisar cambios con reglas generales y referencias específicas por tecnología. |
 | `performance-optimizer` | Diagnosticar y optimizar rendimiento con evidencia. |
 
 ### Revisión modular
 
-`senior-code-review` selecciona referencias según el alcance de la revisión. Una revisión de un componente Vue utiliza principalmente las reglas de Vue/JavaScript; las reglas de Laravel, PostgreSQL o Redis solo se cargan cuando el cambio involucra esas capas.
+`code-review` selecciona referencias según el alcance de la revisión. Una revisión de un componente Vue utiliza principalmente las reglas de Vue/JavaScript; las reglas de Laravel, PostgreSQL o Redis solo se cargan cuando el cambio involucra esas capas.
 
 ## Instalar en otro equipo
 

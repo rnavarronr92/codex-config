@@ -290,7 +290,7 @@ Las pruebas que necesitan base de datos deben ejecutarse en un entorno aislado.
 
 **Herramientas:**
 - Codex Review
-- Skill `senior-code-review`
+- Skill `code-review`
 - Skill `performance-optimizer`
 - PHPStan / Larastan
 - ESLint
@@ -304,7 +304,7 @@ Esta revisión es responsabilidad del desarrollador, aunque utilice IA para apoy
 
 ### Revisión de código
 
-La skill `senior-code-review` debe evaluar:
+La skill `code-review` debe evaluar:
 
 La revisión respeta el alcance solicitado y carga únicamente las referencias relevantes de la skill. Si un cambio cruza varias capas, se cargan las referencias adicionales necesarias para seguir el flujo completo.
 
@@ -336,7 +336,7 @@ Por ejemplo, una revisión de un nuevo selector Vue no implica revisar PostgreSQ
 ### Ejemplo
 
 ```text
-$senior-code-review
+$code-review
 
 Revisa los cambios de mi rama respecto de develop.
 
@@ -544,7 +544,7 @@ codex-config/
     │   └── SKILL.md
     ├── technical-planner/
     │   └── SKILL.md
-    ├── senior-code-review/
+    ├── code-review/
     │   └── SKILL.md
     └── performance-optimizer/
         └── SKILL.md
@@ -556,7 +556,7 @@ codex-config/
 |---|---|
 | `review-user-story` | Analizar requisitos y ambigüedades |
 | `technical-planner` | Investigar el proyecto y definir un plan técnico |
-| `senior-code-review` | Auditar cambios, detectar bugs y regresiones |
+| `code-review` | Auditar cambios, detectar bugs y regresiones |
 | `performance-optimizer` | Analizar y optimizar consultas, recursos y rendimiento |
 
 Las skills no sustituyen la revisión humana ni los controles automáticos.

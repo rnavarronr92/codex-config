@@ -1,5 +1,5 @@
 ---
-name: senior-code-review
+name: code-review
 description: >
   Perform a senior-level, read-only code review of software changes.
   Detect the technologies and requested scope, then load only the
