@@ -32,6 +32,8 @@ codex-config/
 | `technical-planner` | Investigar el código y preparar planes técnicos. |
 | `code-review` | Revisar cambios con reglas generales y referencias específicas por tecnología. |
 | `performance-optimizer` | Diagnosticar y optimizar rendimiento con evidencia. |
+| `data-model-review` | Revisar migraciones y derivar un modelo de datos verificable, con criterios Laravel/PostgreSQL para grandes volúmenes. |
+| `api-documentation` | Generar o actualizar documentación de APIs a partir del código y los tests, incluyendo contratos Laravel/OpenAPI. |
 
 ### Revisión modular
 
@@ -46,6 +48,24 @@ interactiva disponible o en el chat.
 
 Las respuestas se incorporan al plan. Las decisiones bloqueantes
 pendientes impiden clasificarlo como READY.
+
+### Modelo de datos y documentación de APIs
+
+`data-model-review` revisa migraciones, modelos ORM, restricciones, índices y
+tests para reconstruir el esquema actual y proponer un diagrama entidad-
+relación sin inventar reglas de negocio. En proyectos Laravel con PostgreSQL
+considera además Eloquent, índices, locks, backfills, planes de ejecución y
+riesgos de migraciones sobre grandes volúmenes.
+
+`api-documentation` inspecciona rutas, validaciones, controladores,
+serializadores y tests para generar o actualizar documentación OpenAPI y
+detectar diferencias entre el contrato documentado y el comportamiento real.
+En Laravel considera además Form Requests, API Resources, middleware,
+autorización, semántica REST, códigos HTTP, paginación, límites de volumen y
+compatibilidad de contratos.
+
+Ambas skills trabajan por defecto en modo de análisis y documentación. No
+modifican la aplicación ni bases de datos sin una solicitud explícita.
 
 ## Instalar en otro equipo
 
