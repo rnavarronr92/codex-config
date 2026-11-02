@@ -74,6 +74,48 @@ Reference actual file paths and symbols.
 Never invent files, methods, database columns or
 dependencies that have not been verified.
 
+### Clarification workflow
+
+Resolve material uncertainties before finalizing the plan.
+
+- First inspect the requirements, relevant code and documentation.
+- Ask only about decisions that cannot be resolved from available
+  sources and materially affect scope, business behavior,
+  architecture, compatibility or testing.
+- Do not repeat questions already answered.
+- If requirements and the implementation path are clear,
+  proceed without an unnecessary questionnaire.
+
+Use the interactive question tool available in the current
+environment. If unavailable, ask concise questions in chat.
+
+For each question:
+
+- Explain what is unresolved and why it affects the plan.
+- Offer concrete alternatives when useful and explain their tradeoffs.
+- Distinguish a technical recommendation from an approved decision.
+- Allow the user to provide an alternative answer.
+
+Group related questions into small batches. Ask follow-up
+questions only when an answer introduces a material uncertainty.
+
+When handling answers:
+
+- Incorporate answers into confirmed requirements and decisions.
+- Do not treat silence, skipped questions or suggested defaults
+  as approval.
+- Wait for answers before finalizing dependent decisions.
+- Continue independent investigation when possible.
+- Document minor, low-impact assumptions explicitly.
+- Route unresolved business decisions to the Product Owner
+  when the user cannot confirm them.
+
+If critical questions remain unresolved, present the available
+analysis and classify readiness as CONDITIONAL or BLOCKED.
+Do not mark the plan READY while blocking decisions remain open.
+
+Clarification does not authorize implementation.
+
 ## 4. Technical impact analysis
 
 Evaluate only applicable areas.
@@ -206,6 +248,9 @@ Before finalizing, verify that:
 - Tasks have a logical order.
 - Testing covers critical behavior.
 - Risks and unknowns are explicit.
+- User answers are reflected in the plan.
+- Recommendations are distinguished from approved decisions.
+- No blocking question remains unresolved for a READY plan.
 - The plan is actionable without guessing.
 - No application code was modified.
 
@@ -218,14 +263,14 @@ Use this structure:
 # Technical Implementation Plan
 
 ## 1. Objective and scope
-## 2. Confirmed requirements and assumptions
+## 2. Confirmed requirements, clarified decisions and assumptions
 ## 3. Current implementation
 ## 4. Impacted components and dependencies
 ## 5. Proposed solution and alternatives
 ## 6. Implementation tasks
 ## 7. Testing and acceptance matrix
 ## 8. Risks, rollout and rollback
-## 9. Open decisions
+## 9. Open decisions and pending questions
 ## 10. Readiness recommendation
 
 Classify readiness as:

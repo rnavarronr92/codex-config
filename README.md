@@ -37,6 +37,16 @@ codex-config/
 
 `code-review` selecciona referencias según el alcance de la revisión. Una revisión de un componente Vue utiliza principalmente las reglas de Vue/JavaScript; las reglas de Laravel, PostgreSQL o Redis solo se cargan cuando el cambio involucra esas capas.
 
+### Planificación con aclaraciones
+
+`technical-planner` investiga los requisitos y el código existente.
+Cuando encuentra decisiones relevantes que no puede resolver con
+esa información, formula preguntas mediante la herramienta
+interactiva disponible o en el chat.
+
+Las respuestas se incorporan al plan. Las decisiones bloqueantes
+pendientes impiden clasificarlo como READY.
+
 ## Instalar en otro equipo
 
 Clona el repositorio y ejecuta el instalador:

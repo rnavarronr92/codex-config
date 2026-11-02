@@ -207,6 +207,22 @@ El desarrollador revisa y aprueba el plan.
 
 En cambios de mayor complejidad o riesgo técnico, participa el Tech Lead.
 
+### Aclaraciones durante la planificación
+
+Después de investigar el código, la skill plantea las preguntas
+necesarias para resolver decisiones que afecten la solución.
+
+El desarrollador responde las decisiones técnicas y consulta al
+PO cuando corresponde aclarar reglas de negocio o alcance.
+
+La skill incorpora las respuestas al plan y distingue las
+decisiones confirmadas de las recomendaciones y supuestos.
+Puede continuar investigando aspectos independientes mientras
+espera respuestas.
+
+Si quedan decisiones bloqueantes, el plan se presenta como
+CONDITIONAL o BLOCKED.
+
 ---
 
 ## 4. Desarrollo local
