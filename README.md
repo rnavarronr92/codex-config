@@ -31,6 +31,7 @@ codex-config/
 | `review-user-story` | Revisar historias de usuario de Azure DevOps. |
 | `technical-planner` | Investigar el código y preparar planes técnicos. |
 | `code-review` | Revisar cambios con reglas generales y referencias específicas por tecnología. |
+| `grill-me` | Someter planes y diseños a una entrevista exhaustiva antes de implementarlos. |
 | `performance-optimizer` | Diagnosticar y optimizar rendimiento con evidencia. |
 | `data-model-review` | Revisar migraciones y derivar un modelo de datos verificable, con criterios Laravel/PostgreSQL para grandes volúmenes. |
 | `api-documentation` | Generar o actualizar documentación de APIs a partir del código y los tests, incluyendo contratos Laravel/OpenAPI. |
