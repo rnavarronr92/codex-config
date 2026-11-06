@@ -36,6 +36,7 @@ codex-config/
 | `data-model-review` | Revisar migraciones y derivar un modelo de datos verificable, con criterios Laravel/PostgreSQL para grandes volúmenes. |
 | `api-documentation` | Generar o actualizar documentación de APIs a partir del código y los tests, incluyendo contratos Laravel/OpenAPI. |
 | `impersonate-user` | Pedir las URLs de cada entorno local, llegar a Roma mediante Saitama y revisar el módulo indicado de forma observacional. |
+| `resumen-pie-plus` | Resumir historias activas, tareas y asignaciones de PIE Plus, con análisis opcional del avance en Nemo. |
 
 ### Revisión modular
 
