@@ -64,6 +64,13 @@ tasks, risks and an acceptance-to-verification matrix. Summarize it to the user,
 then continue when implementation was requested and no material decision blocks
 it. In analysis-only mode, finish with the plan and its readiness limits.
 
+When the feature changes a security boundary (identity/permissions, private or
+cross-tenant data, files, untrusted input/output, credentials, dependencies or CI),
+include a short threat summary: actor, protected resource, controlled input,
+expected enforcement and negative acceptance checks. Use actual project rules;
+do not invent permissions. For a cosmetic change, record that no relevant new
+boundary was identified instead of starting an extra audit.
+
 ## Implement and verify
 
 - Record starting HEAD and existing local changes. Preserve unrelated work;
@@ -75,7 +82,8 @@ it. In analysis-only mode, finish with the plan and its readiness limits.
 - The coordinator implements, or delegates bounded tasks to available execution
   workers with explicit file ownership and shared interface contracts. Tell workers
   they share the codebase and must preserve others' edits. Do not assign writing
-  to the three investigator/reviewer roles or parallelize overlapping ownership.
+  to investigator/reviewer roles, including `security-reviewer`, or parallelize
+  overlapping ownership.
 - Reuse project conventions and relevant implementation skills. Consult the
   project's framework/design-system tools when applicable. Avoid unrelated
   refactoring and dependencies. Maintain tests/documentation when the change and
@@ -95,6 +103,15 @@ areas or `code-review` for a narrow change, when available. Delegate review in a
 fresh bounded context when possible, providing requirements, resolved comparison
 commits and the relevant local diff. Fall back to a direct evidence-based review
 when those skills or delegation are unavailable and disclose that limitation.
+
+For a changed security boundary or an explicit security-review request, include
+a focused `security-review` in the review phase. Delegate to `security-reviewer`
+or an equivalent fresh read-only agent when available, within the same maximum
+of three active subagents; schedule additional areas sequentially if needed.
+If `parallel-review` already owns this assignment, reuse its result rather than
+running a duplicate security pass. If the role/skill is unavailable, perform the
+equivalent scoped boundary trace and disclose the fallback. Keep source-only
+security review separate from normal implementation/test execution.
 
 Reviewers report findings without editing. The coordinator validates findings,
 then makes corrections in the implementation phase under the original request.
@@ -116,6 +133,11 @@ review findings/corrections and remaining QA work. COMPLETE requires implemented
 scope, relevant acceptance evidence, required checks passed and no unresolved
 blocking review findings. Skipped required checks or incomplete review mean
 PARTIAL, even when the process itself exited successfully.
+
+Include relevant security coverage and remaining validation gaps in that report.
+Unresolved confirmed P0/P1 security findings block COMPLETE. A missing decisive
+fact for a required security invariant means PARTIAL; do not turn optional
+hardening suggestions or unrelated audit gaps into new release requirements.
 
 Stop for unresolved business decisions, required new access, scope expansion or
 repeated failures; keep the next needed action concrete. Do not infer permission

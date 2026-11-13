@@ -29,6 +29,12 @@ Act as a pragmatic senior software engineer reviewing changes for production rea
 
 For example, a request to review a new Vue selector should primarily load `vue-javascript.md`. Load backend or database references only if the component depends on those layers.
 
+For an explicit security review or material changes to a security boundary, use
+`security-review` when available within the same scope. Otherwise trace the
+boundary with the relevant references here. This is not authorization for a full
+audit or runtime probes. Keep source-grounded security validation gaps separate
+from confirmed defects and avoid duplicate findings from another reviewer.
+
 ## Investigation process
 
 Before reporting findings:

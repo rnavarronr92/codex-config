@@ -33,6 +33,15 @@ subagents within available session capacity, selecting only affected areas:
 | Backend | `backend-investigator` | Behavior, validation, authorization and service/API integration |
 | Frontend | `frontend-investigator` | State, events, requests, UI behavior and integration |
 | Persistence | `persistence-reviewer` | Integrity, queries, concurrency, jobs and cache behavior |
+| Security, when applicable | `security-reviewer` | Cross-layer trust boundaries, authorization/isolation and sensitive input/output |
+
+Include a focused security assignment when the requested change affects a
+security boundary or the user requests it. Even a narrow authentication or
+private-file change can merit this assignment. Prefer `security-review` for it;
+otherwise apply the same evidence-based boundary trace. Keep at most three
+active subagents, scheduling additional areas in a later wave when needed.
+Security owns cross-layer security claims; other reviewers report relevant
+evidence to the coordinator without producing duplicate findings.
 
 Use an available general or exploration agent with equivalent instructions when
 the preferred role is missing. If delegation is unavailable, review sequentially
@@ -59,6 +68,12 @@ Wait for all started assignments to complete or fail. Retry a failed assignment
 once when useful, or cover it directly; disclose any remaining gap. Validate
 suspected defects against actual paths, reconcile conflicts and deduplicate
 findings by root cause. Do not concatenate agent reports without checking them.
+
+For material security candidates, assign a different read-only verifier to
+challenge the source claim when capacity allows. A security reviewer that cannot
+delegate returns the candidate to this coordinator for that assignment. Disclose
+unavailable independent verification. Keep needs_validation items with their
+decisive missing facts separate from confirmed findings and severity totals.
 
 Check HEAD, the captured diff and untracked content again before the final response. If the
 reviewed inputs changed, identify affected conclusions and reassess those areas

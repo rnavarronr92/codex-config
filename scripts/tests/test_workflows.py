@@ -92,7 +92,8 @@ class InstallationTests(unittest.TestCase):
             names.add(config["name"])
             self.assertTrue(config["description"])
             self.assertTrue(config["developer_instructions"])
-        self.assertEqual(len(names), 3)
+        self.assertEqual(names, {"backend-investigator", "frontend-investigator",
+                                 "persistence-reviewer", "security-reviewer"})
 
 
 class WorkflowTests(unittest.TestCase):
@@ -128,7 +129,7 @@ class WorkflowTests(unittest.TestCase):
             "PATH": str(bin_dir) + os.pathsep + os.environ["PATH"],
             "WORKFLOW_CAPTURE": str(self.capture),
         }
-        for name in ("story-analysis", "parallel-review", "story-workflow"):
+        for name in ("story-analysis", "parallel-review", "security-review", "story-workflow"):
             path = self.codex_home / "skills" / name / "SKILL.md"
             path.parent.mkdir(parents=True)
             path.write_text("fixture skill\n")
@@ -184,6 +185,22 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(captured["args"][3:5], ["--sandbox", "read-only"])
         self.assertIn("$story-workflow", captured["prompt"])
         self.assertIn(f"Resolved base commit: {self.git('rev-parse', 'HEAD')}", captured["prompt"])
+
+    def test_security_review_is_read_only_and_keeps_literal_scope(self):
+        request = "Review private document access and tenant isolation"
+        result = self.run_workflow("security-review", "--request", request)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        captured = json.loads(self.capture.read_text())
+        self.assertEqual(captured["args"][3:5], ["--sandbox", "read-only"])
+        self.assertIn("$security-review", captured["prompt"])
+        self.assertIn(request, captured["prompt"])
+        self.assertIn("focused source-only security review", captured["prompt"])
+
+    def test_security_review_resolves_explicit_base(self):
+        self.git("branch", "security-base")
+        result = self.run_workflow("security-review", "--base", "security-base", "--request", "Review this diff")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("Requested base reference: security-base", json.loads(self.capture.read_text())["prompt"])
 
     def test_full_workflow_implementation_is_opt_in(self):
         result = self.run_workflow("story-workflow", "--request", "Add a feature", "--implement")
@@ -257,6 +274,7 @@ class WorkflowTests(unittest.TestCase):
             ("story-analysis", ("--request", "Analyze", "--base", "HEAD")),
             ("story-analysis", ("--request", "Analyze", "--implement")),
             ("parallel-review", ("--base", "HEAD", "--request", "Review", "--implement")),
+            ("security-review", ("--request", "Review", "--implement")),
             ("story-workflow", ("--base", "missing-branch", "--request", "Implement")),
         ]:
             with self.subTest(workflow=workflow, arguments=arguments):

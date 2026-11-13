@@ -562,6 +562,15 @@ observacional; implementa el coordinador o workers de ejecución. Una solicitud
 de desarrollo completo cubre esas etapas locales sin confirmaciones rutinarias.
 Una solicitud de análisis no autoriza implementación.
 
+Cuando el cambio afecta una frontera de seguridad, el plan identifica actor,
+recurso, entrada y controles esperados. La revisión incorpora `security-review`
+y, cuando corresponde, un `security-reviewer` de solo lectura, sin superar tres
+subagentes activos ni duplicar hallazgos de otros revisores. Los hechos pendientes
+de validar se distinguen de defectos confirmados. Los P0/P1 de seguridad sin
+resolver impiden clasificar el desarrollo como completo. La
+[guía de seguridad](security-workflow.md) define el alcance focalizado y su relación
+con una auditoría completa independiente.
+
 Ambos flujos seleccionan las áreas pertinentes y trabajan sin modificar código.
 La preparación técnica no sustituye la aprobación funcional ni autoriza la
 implementación. Los cambios pequeños pueden resolverse en un solo hilo.

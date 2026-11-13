@@ -36,6 +36,7 @@ codex-config/
 | `story-analysis` | Coordinar investigación por capas y consolidar requisitos y planificación técnica. |
 | `parallel-review` | Delegar revisión por capas y consolidar hallazgos verificables. |
 | `story-workflow` | Coordinar desarrollo local completo desde un ID, URL, documento o texto, sin exigir una historia en Azure. |
+| `security-review` | Revisar límites de seguridad en un diff o módulo, separando defectos demostrados y hechos pendientes de validar. |
 | `grill-me` | Someter planes y diseños a una entrevista exhaustiva antes de implementarlos. |
 | `performance-optimizer` | Diagnosticar y optimizar rendimiento con evidencia. |
 | `data-model-review` | Revisar migraciones y derivar un modelo de datos verificable, con criterios Laravel/PostgreSQL para grandes volúmenes. |
@@ -130,6 +131,7 @@ Cuando Codex trabaja dentro de este repositorio, puede descubrir las skills de `
 - [Flujo de desarrollo asistido por IA](docs/ai-development-workflow.md)
 - [Configuración de Azure DevOps MCP](docs/integrations/azure-devops-mcp.md)
 - [Subagentes y automatización](docs/subagents-and-automation.md)
+- [Seguridad en el workflow](docs/security-workflow.md)
 
 ## Análisis y revisión coordinados
 
@@ -202,6 +204,30 @@ Los roles investigadores siguen sin editar. Implementa el coordinador o un worke
 de ejecución con responsabilidad acotada. El resultado incluye criterios cubiertos,
 checks ejecutados, correcciones y pendientes para QA. No incluye publicación ni
 despliegue automáticos. Más detalles en la [guía](docs/subagents-and-automation.md).
+
+## Revisión de seguridad
+
+`story-workflow` incorpora una revisión focalizada cuando cambia una frontera de
+seguridad: permisos, aislamiento de datos, archivos privados, entradas no
+confiables, credenciales o ejecución de CI, entre otras. Incluye un breve análisis
+de amenazas en el plan y usa `security-reviewer` en la revisión cuando procede.
+Un cambio cosmético no inicia una auditoría adicional.
+
+```text
+$security-review Revisa los cambios contra main, especialmente el acceso a documentos privados.
+```
+
+```bash
+./scripts/run-workflow.sh security-review /ruta/al/proyecto \
+  --base main --request 'Revisa autorización y aislamiento de instituciones'
+```
+
+La revisión inspecciona código sin ejecutar payloads, tests ni escáneres. Separa
+hallazgos confirmados, hechos pendientes de validación y candidatos descartados;
+las correcciones y pruebas pertenecen a la fase de implementación autorizada.
+Esta skill propia toma como referencia principios de revisión con evidencia;
+no instala ni ejecuta la auditoría completa de Cloudflare. Consulta la
+[guía](docs/security-workflow.md) para alcance, límites y herramientas adicionales.
 
 ## Verificación de los scripts
 

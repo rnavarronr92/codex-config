@@ -14,6 +14,7 @@ de cada historia siguen perteneciendo al proyecto y a su sistema de seguimiento.
 | `backend-investigator` | Backend, autorización y contratos de integración |
 | `frontend-investigator` | Estado, componentes, comportamiento e integración UI |
 | `persistence-reviewer` | Persistencia, integridad, consultas y concurrencia |
+| `security-reviewer` | Límites de confianza, controles existentes y validación de candidatos de seguridad |
 | Agente principal | Aclaraciones, dependencias entre capas y resultado final |
 | Programador o pipeline | Decidir cuándo ejecutar el flujo y conservar resultados |
 
@@ -129,6 +130,11 @@ de pipeline persistente. Al retomar una sesión debe contrastar el estado actual
 
 ## Ejecución desde scripts
 
+La revisión focalizada de seguridad también puede ejecutarse por separado con
+`security-review`. Se integra por riesgo en `story-workflow` y `parallel-review`,
+sin convertir cada tarea en una auditoría completa. Consulta la
+[guía de seguridad](security-workflow.md) para alcance y límites.
+
 Requisitos: Bash, Git, Codex CLI autenticado y las skills sincronizadas. Este
 comando no instala recursos ni credenciales. Usa la configuración y conexiones
 disponibles para la cuenta que lo ejecuta. La integración MCP debe poder
@@ -167,7 +173,7 @@ del desarrollo completo es el HEAD inicial; `--base` permite elegir otra.
 El comando resuelve la base a un commit antes de iniciar la revisión, exige
 ancestro común y no hace `fetch`. Una referencia remota local puede estar
 desactualizada; la actualización de referencias es una operación separada.
-`--base` es obligatorio para `parallel-review`, opcional para `story-workflow`
+`--base` es obligatorio para `parallel-review`, opcional para `security-review` y `story-workflow`
 y no se admite en `story-analysis`.
 Si pasas un subdirectorio del proyecto, indica en la solicitud si el alcance debe
 limitarse a ese módulo o incluir todo el repositorio.
