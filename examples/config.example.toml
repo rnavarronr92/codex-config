@@ -9,3 +9,9 @@
 
 # La configuración real normalmente se guarda en:
 # ~/.codex/config.toml
+
+# Opcional: limita la concurrencia de subagentes en clientes compatibles.
+# Los roles personales se copian a $CODEX_HOME/agents mediante install.sh.
+# Los modelos y el esfuerzo se heredan de la sesión; no se fijan en los roles.
+# [agents]
+# max_concurrent_threads_per_session = 3
