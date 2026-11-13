@@ -38,6 +38,7 @@ codex-config/
 | `story-workflow` | Coordinar desarrollo local completo desde un ID, URL, documento o texto, sin exigir una historia en Azure. |
 | `security-review` | Revisar límites de seguridad en un diff o módulo, separando defectos demostrados y hechos pendientes de validar. |
 | `grill-me` | Someter planes y diseños a una entrevista exhaustiva antes de implementarlos. |
+| `grilling` | Procedimiento compartido de entrevista por rondas utilizado por `grill-me`. |
 | `performance-optimizer` | Diagnosticar y optimizar rendimiento con evidencia. |
 | `data-model-review` | Revisar migraciones y derivar un modelo de datos verificable, con criterios Laravel/PostgreSQL para grandes volúmenes. |
 | `api-documentation` | Generar o actualizar documentación de APIs a partir del código y los tests, incluyendo contratos Laravel/OpenAPI. |
@@ -57,6 +58,51 @@ interactiva disponible o en el chat.
 
 Las respuestas se incorporan al plan. Las decisiones bloqueantes
 pendientes impiden clasificarlo como READY.
+
+### Entrevista de planes e ideas
+
+`grill-me` es la entrada de invocación explícita y carga las instrucciones de
+`grilling`, incluida en este repositorio. El instalador copia ambas skills,
+sus metadatos y licencias; no se necesita instalar un paquete npm ni modificar
+el proyecto de aplicación.
+
+```text
+$grill-me Examina el plan que acabamos de preparar. Cuestiona los supuestos,
+riesgos y decisiones pendientes antes de implementarlo.
+```
+
+La entrevista agrupa en cada ronda las preguntas que pueden resolverse sin
+depender de respuestas todavía pendientes. Cada pregunta incluye una
+recomendación; las respuestas del usuario determinan las rondas siguientes.
+Puede pedirse una pregunta a la vez. Los hechos se investigan con las fuentes
+disponibles y las decisiones se consultan al usuario. El cierre resume acuerdos
+y pendientes y confirma el entendimiento compartido. No modifica archivos ni
+inicia implementación; para ello hace falta una solicitud separada.
+
+La entrada `grill-me` conserva `allow_implicit_invocation: false` en
+`agents/openai.yaml`. `grilling` conserva la disponibilidad automática del
+original cuando corresponde una entrevista; no se añade una fase obligatoria
+a `story-workflow` ni a cada planificación.
+
+#### Procedencia y actualizaciones
+
+Adaptadas de [mattpocock/skills](https://github.com/mattpocock/skills), revisión
+[`5863806dd4e15c63174bee4e7515a4256792ecfa`](https://github.com/mattpocock/skills/commit/5863806dd4e15c63174bee4e7515a4256792ecfa):
+
+- [Entrada original `grill-me`](https://github.com/mattpocock/skills/blob/5863806dd4e15c63174bee4e7515a4256792ecfa/skills/productivity/grill-me/SKILL.md).
+- [Procedimiento original `grilling`](https://github.com/mattpocock/skills/blob/5863806dd4e15c63174bee4e7515a4256792ecfa/skills/productivity/grilling/SKILL.md).
+- [Explicación del autor](https://www.aihero.dev/skills-grill-me).
+
+Se conserva la licencia MIT de Matt Pocock en cada skill. Las adaptaciones
+locales sustituyen la llamada a una herramienta `Skill` por la lectura explícita
+de la dependencia, usan la política de invocación de Codex en lugar del campo
+`disable-model-invocation`, permiten investigación directa cuando no hay
+delegación y explicitan los límites de solo lectura y cierre de la entrevista.
+Los metadatos de interfaz de `grilling` se conservan desde esa revisión.
+
+Las actualizaciones del upstream se revisan y versionan aquí, conservando estas
+adaptaciones y actualizando la revisión documentada. No se descargan cambios
+automáticamente al instalar o invocar las skills.
 
 ### Modelo de datos y documentación de APIs
 

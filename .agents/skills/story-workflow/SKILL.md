@@ -59,6 +59,25 @@ capacity; use a single agent for a narrow task. Keep read-only roles read-only.
 Avoid launching another coordinating skill inside an already delegated role.
 Wait for assignments and verify material evidence; report failures and fallbacks.
 
+Before finalizing the plan, use the [grilling procedure](../grilling/SKILL.md)
+when investigation leaves meaningful alternatives or disputed assumptions that
+affect scope, architecture or compatibility and require user decisions. Read
+its instructions explicitly; use `grilling`, not the explicit-only `grill-me`
+entry point. Skip the interview for small, clear changes or settled decisions.
+If the skill is unavailable, disclose the fallback and ask the equivalent
+focused questions directly.
+
+Reuse the current plan, source evidence and answers from `review-user-story`,
+`story-analysis` and `technical-planner`. Interview only the unresolved decisions;
+do not repeat settled questions or ask the user for facts available in code.
+Keep this phase and its research read-only, within the same delegation limits.
+Wait for actual answers, incorporate decisions and proposed adjustments into
+the plan, and confirm shared understanding before closing an invoked interview.
+Unresolved blocking decisions keep the plan CONDITIONAL or BLOCKED. Then end
+the interview phase: the coordinator may resume implementation under the
+original complete-delivery request without another routine approval. A plan-only
+request remains read-only; new scope or access still requires authorization.
+
 Produce an actionable plan with actual affected files, shared contracts, ordered
 tasks, risks and an acceptance-to-verification matrix. Summarize it to the user,
 then continue when implementation was requested and no material decision blocks
