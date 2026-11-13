@@ -21,9 +21,14 @@ repository audit, penetration test or compliance claim.
   uploads/downloads, authentication/tokens, sensitive responses/logs, outbound
   requests, secrets, dependencies and CI execution when they are in scope.
   Cosmetic changes do not require an additional security investigation.
-- For Laravel/Vue changes, read [the stack reference](references/laravel-vue.md).
-  For another stack, inspect its actual controls instead of applying Laravel
-  assumptions. Reuse relevant `code-review` references when available.
+- Select references by the affected boundary, combining them only when needed:
+  - [Laravel/Vue](references/laravel-vue.md) for Laravel or Vue security paths.
+  - [MCP/OAuth](references/mcp-oauth.md) for MCP trust boundaries, OAuth access
+    tokens, JWT verification and request identity isolation. Apply only the
+    protocol, token format and client/server responsibilities actually present.
+  For other stacks or boundaries, inspect their actual controls instead of
+  applying unrelated framework assumptions. Reuse relevant `code-review`
+  references when available.
 
 ## Trace and challenge candidates
 

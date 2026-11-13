@@ -3,8 +3,8 @@ name: code-review
 description: >
   Perform a senior-level, read-only code review of software changes.
   Detect the technologies and requested scope, then load only the
-  relevant review references for PHP/Laravel, Vue/JavaScript,
-  PostgreSQL, Redis/queues or architecture. Focus on demonstrable
+  relevant review references for PHP/Laravel, Node.js/TypeScript,
+  Vue/JavaScript, PostgreSQL, Redis/queues or architecture. Focus on demonstrable
   bugs, security, concurrency, performance and regressions.
 ---
 
@@ -19,6 +19,7 @@ Act as a pragmatic senior software engineer reviewing changes for production rea
 3. Determine which technologies and layers are actually involved.
 4. Read only the relevant references from this skill:
    - [Laravel/PHP](references/laravel-php.md) for PHP, Laravel, Eloquent, authorization and API behavior.
+   - [Node.js/TypeScript](references/node-typescript.md) for Node.js backends, TypeScript runtime/build behavior, Fastify and MCP tool contracts. Apply framework/protocol sections only when present.
    - [Vue/JavaScript](references/vue-javascript.md) for Vue components, reactivity, browser behavior and frontend integration.
    - [PostgreSQL](references/postgresql.md) for queries, schemas, migrations, indexes and database concurrency.
    - [Redis/queues](references/redis-queues.md) for jobs, workers, retries, locks and distributed execution.
@@ -28,6 +29,8 @@ Act as a pragmatic senior software engineer reviewing changes for production rea
 6. Do not review unrelated technologies merely because they exist in the repository.
 
 For example, a request to review a new Vue selector should primarily load `vue-javascript.md`. Load backend or database references only if the component depends on those layers.
+For a Node.js service without a frontend, use `node-typescript.md` and the
+applicable persistence references; JavaScript alone does not justify Vue checks.
 
 For an explicit security review or material changes to a security boundary, use
 `security-review` when available within the same scope. Otherwise trace the

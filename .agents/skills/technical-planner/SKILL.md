@@ -52,6 +52,13 @@ Minor uncertainties may be documented as assumptions.
 
 Investigate existing implementations before proposing changes.
 
+Establish a concise technical profile from repository instructions, manifests,
+lockfiles, runtime/compiler configuration and CI: relevant technologies and
+versions, module boundaries, transport/contracts and available verification
+commands. Distinguish declared version ranges from resolved versions and the
+runtime actually verified. Use this profile to select applicable sections;
+do not infer a frontend, ORM or queue system from a shared language or database.
+
 Read relevant:
 - AGENTS.md files.
 - Project documentation.
@@ -127,6 +134,30 @@ Evaluate only applicable areas.
 - Input validation.
 - API contracts and response compatibility.
 - Model events and side effects.
+
+### Node.js / TypeScript
+- Runtime version, ESM/CommonJS and compatibility between development execution,
+  type checking, build output and production entry points.
+- Runtime validation at external boundaries; TypeScript types alone do not
+  validate incoming data. Inspect the configured schema library and serializers.
+- Awaited work, error propagation, cancellation and bounded concurrency.
+- Connection ownership, partial startup cleanup and graceful shutdown.
+- For Fastify, plugin scope, hook order and authentication/validation coverage.
+- Reuse configured package scripts and CI checks for types, architecture,
+  tests and builds; do not prescribe Laravel or frontend commands by default.
+
+### MCP services, when present
+- SDK/protocol versions, supported transport and actual client/server roles.
+- Tool names, input/output schemas, result/error contracts and compatibility;
+  HTTP endpoint documentation alone does not describe MCP tool contracts.
+- Identity propagation, resource authorization and isolation between requests
+  or sessions; distinguish transport authentication from business permissions.
+- Declared read-only behavior versus reachable database/API side effects.
+- Server/transport lifecycle, shared dependencies and disconnect cleanup,
+  following the repository's stateful or stateless design.
+- Plan protocol/contract tests and negative permission cases when affected.
+  Use the installed `security-review` MCP/OAuth reference during a relevant
+  security phase; planning does not authorize probes or token issuance.
 
 ### PostgreSQL
 - Entities and relationships affected.
