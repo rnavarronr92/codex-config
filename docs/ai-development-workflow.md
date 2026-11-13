@@ -7,6 +7,14 @@ El objetivo es incorporar estas herramientas al proceso de ingeniería mantenien
 
 La IA participa como herramienta de apoyo para el análisis, planificación, implementación, optimización y revisión de código.
 
+El recorrido local puede coordinarse con `story-workflow` a partir de una historia
+de Azure DevOps, una URL, un documento local/adjunto o requisitos escritos en el
+mensaje. No exige crear una historia para trabajar desde otra fuente. El flujo
+normaliza los requisitos y continúa por planificación, implementación,
+verificación, revisión y correcciones cuando se solicita desarrollo completo.
+Las decisiones funcionales bloqueantes siguen requiriendo aclaración; la entrega
+a staging y el proceso independiente de QA conservan sus responsabilidades.
+
 ## 1. Flujo general
 
 El proceso comienza cuando el Product Owner (PO) presenta y entrega una historia de usuario.
@@ -539,6 +547,31 @@ Si se detectan nuevos requisitos o modificaciones de alcance, deben revisarse co
 ---
 
 ## 9. Integraciones
+
+### Subagentes y automatización
+
+Para historias que afectan varias capas, `story-analysis` coordina la
+investigación independiente y reutiliza `technical-planner` para consolidar un
+plan. La revisión de cambios puede delegarse mediante `parallel-review`, que
+reutiliza `code-review` y devuelve un único informe. Los roles se sincronizan
+desde `agents/` junto con las skills personales.
+
+`story-workflow` agrega la coordinación de todo el desarrollo local y admite
+fuentes distintas de Azure. Sus fases de análisis y revisión conservan el alcance
+observacional; implementa el coordinador o workers de ejecución. Una solicitud
+de desarrollo completo cubre esas etapas locales sin confirmaciones rutinarias.
+Una solicitud de análisis no autoriza implementación.
+
+Ambos flujos seleccionan las áreas pertinentes y trabajan sin modificar código.
+La preparación técnica no sustituye la aprobación funcional ni autoriza la
+implementación. Los cambios pequeños pueden resolverse en un solo hilo.
+
+El comando `scripts/run-workflow.sh` permite ejecutar estos flujos en modo no
+interactivo. La [guía de subagentes y automatización](subagents-and-automation.md)
+describe los roles, la instalación, el uso manual y las alternativas para tareas
+programadas y CI. `story-workflow --implement` habilita el desarrollo; los otros
+flujos y el modo por defecto son de solo lectura. Los horarios y disparadores
+se configuran por separado.
 
 La configuración de Azure DevOps MCP está documentada por separado en [Azure DevOps MCP](integrations/azure-devops-mcp.md).
 

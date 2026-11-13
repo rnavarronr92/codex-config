@@ -5,6 +5,7 @@ Repositorio central para mantener y reutilizar la configuración y los flujos de
 Incluye:
 
 - Skills reutilizables.
+- Roles personales de subagentes y coordinación de análisis/revisiones.
 - Instrucciones globales opcionales.
 - Flujos de desarrollo asistido por IA.
 - Contexto y reglas de trabajo.
@@ -17,6 +18,7 @@ Incluye:
 ```text
 codex-config/
 ├── .agents/skills/              # Skills del repositorio
+├── agents/                     # Roles personales de subagentes
 ├── global/AGENTS.md             # Instrucciones globales opcionales
 ├── docs/                        # Flujos e integraciones
 ├── examples/                    # Configuraciones de ejemplo
@@ -31,6 +33,9 @@ codex-config/
 | `review-user-story` | Revisar historias de usuario de Azure DevOps. |
 | `technical-planner` | Investigar el código y preparar planes técnicos. |
 | `code-review` | Revisar cambios con reglas generales y referencias específicas por tecnología. |
+| `story-analysis` | Coordinar investigación por capas y consolidar requisitos y planificación técnica. |
+| `parallel-review` | Delegar revisión por capas y consolidar hallazgos verificables. |
+| `story-workflow` | Coordinar desarrollo local completo desde un ID, URL, documento o texto, sin exigir una historia en Azure. |
 | `grill-me` | Someter planes y diseños a una entrevista exhaustiva antes de implementarlos. |
 | `performance-optimizer` | Diagnosticar y optimizar rendimiento con evidencia. |
 | `data-model-review` | Revisar migraciones y derivar un modelo de datos verificable, con criterios Laravel/PostgreSQL para grandes volúmenes. |
@@ -80,11 +85,29 @@ cd codex-config
 ./scripts/install.sh
 ```
 
-El instalador copia las skills a:
+El instalador copia las skills y los roles personales a:
 
 ```text
 ~/.codex/skills/
+~/.codex/agents/
 ```
+
+Respeta `CODEX_HOME` cuando está definido. Al volver a ejecutarlo actualiza los
+archivos de las skills y los TOML de agentes con el mismo nombre. Conserva otros
+archivos y no modifica `config.toml`, credenciales ni conexiones MCP. Los archivos
+extra dentro de una skill instalada tampoco se eliminan ni se incluyen en
+`--check`, que compara únicamente los archivos presentes en la fuente central.
+La eliminación de recursos obsoletos se revisa por separado.
+
+Para comprobar la sincronización sin escribir archivos:
+
+```bash
+./scripts/install.sh --check
+```
+
+Devuelve `0` cuando las copias coinciden y `1` si hay archivos diferentes o
+faltantes. La comprobación de instrucciones globales se incluye únicamente al
+agregar `--with-global-agents`.
 
 Para instalar también las instrucciones globales de `global/AGENTS.md`:
 
@@ -106,6 +129,89 @@ Cuando Codex trabaja dentro de este repositorio, puede descubrir las skills de `
 
 - [Flujo de desarrollo asistido por IA](docs/ai-development-workflow.md)
 - [Configuración de Azure DevOps MCP](docs/integrations/azure-devops-mcp.md)
+- [Subagentes y automatización](docs/subagents-and-automation.md)
+
+## Análisis y revisión coordinados
+
+Después de sincronizar, abre una sesión nueva en el proyecto y usa:
+
+```text
+$story-analysis Analiza la historia aprobada #4521 y prepara un plan técnico.
+```
+
+```text
+$parallel-review Revisa mi rama contra develop, incluyendo cambios locales.
+```
+
+Las skills eligen las áreas pertinentes, delegan hasta tres investigaciones
+independientes y entregan un único resultado. Para cambios pequeños trabajan en
+un solo hilo. Si faltan roles personalizados o soporte de delegación, informan
+el modo alternativo. Trabajan en análisis/revisión y no implementan cambios.
+
+También puedes ejecutar un flujo desde un script o programador externo:
+
+```bash
+./scripts/run-workflow.sh parallel-review /ruta/al/proyecto \
+  --base develop --request 'Revisa los cambios de la rama y los cambios locales' \
+  --output /tmp/review-report.md
+```
+
+El directorio del reporte debe existir y el archivo debe ser nuevo. Usa
+`--dry-run` para inspeccionar el prompt sin ejecutar Codex. Consulta la
+[guía](docs/subagents-and-automation.md) para requisitos, tareas programadas y CI.
+
+## Desarrollo completo desde requisitos
+
+`story-workflow` coordina análisis, planificación, implementación, verificaciones,
+revisión y correcciones. Puede recibir requisitos sin un work item. Por ejemplo:
+
+```text
+$story-workflow Implementa la historia #4521 de PIE Plus.
+```
+
+```text
+$story-workflow Implementa los requisitos de https://ejemplo.com/especificacion.
+```
+
+```text
+$story-workflow Implementa lo descrito en docs/requisitos.md.
+```
+
+```text
+$story-workflow Agrega un filtro por nombre a la lista de profesionales.
+Conserva la paginación y permite limpiar el filtro para ver todos los resultados.
+```
+
+La fuente se consulta con las herramientas disponibles y se convierte en un
+alcance y criterios verificables. El agente continúa entre etapas cuando se
+solicitó el desarrollo completo y no hay decisiones funcionales bloqueantes.
+Puedes pedir «solo analiza» o «solo planifica» para mantener el flujo sin edición.
+Un enlace aislado en una pregunta no autoriza implementación.
+
+Desde terminal, el nuevo flujo también comienza en análisis por defecto.
+`--implement` habilita el desarrollo local con sandbox `workspace-write`:
+
+```bash
+./scripts/run-workflow.sh story-workflow /ruta/al/proyecto \
+  --request 'Implementa los requisitos de docs/requisitos.md' --implement \
+  --output /tmp/implementation-report.md
+```
+
+La revisión usa por defecto el HEAD inicial como base; puedes indicar `--base`.
+Los roles investigadores siguen sin editar. Implementa el coordinador o un worker
+de ejecución con responsabilidad acotada. El resultado incluye criterios cubiertos,
+checks ejecutados, correcciones y pendientes para QA. No incluye publicación ni
+despliegue automáticos. Más detalles en la [guía](docs/subagents-and-automation.md).
+
+## Verificación de los scripts
+
+```bash
+bash -n scripts/install.sh scripts/run-workflow.sh
+python3 -B -m unittest discover -s scripts/tests -v
+```
+
+Las pruebas requieren Python 3.11 o posterior y Git. Usan directorios temporales
+y un ejecutable simulado de Codex; no llaman al modelo ni a servicios externos.
 
 ## Seguridad
 
