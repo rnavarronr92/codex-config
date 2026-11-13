@@ -1,0 +1,3 @@
+interface:
+  display_name: "Parallel Review"
+  short_description: "Review changes with focused parallel agents"

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Story Analysis"
+  short_description: "Investigate stories with focused parallel agents"
